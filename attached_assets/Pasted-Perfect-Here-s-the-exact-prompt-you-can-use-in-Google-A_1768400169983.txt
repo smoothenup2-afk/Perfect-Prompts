@@ -1,0 +1,84 @@
+Perfect! Here’s the exact prompt you can use in Google AI Studio (App Maker) to generate your “Our Cricket” app with all the professional stats, career-bests, daily totals, player profiles with images, and credit line. I’ve adapted it for Google AI Studio’s app creation style:
+
+⸻
+
+📱 Google AI Studio App Prompt — “Our Cricket”
+
+Prompt:
+
+Create a simple, clean, and professional mobile app named “Our Cricket” for tracking cricket statistics of 6 players:
+Himanshu, Kuldeep, Monti, Ronaldo, Jitu, Dilip.
+
+The app should allow entering daily totals per player and automatically calculate professional cricket stats, including career-best records.
+
+Credit: At the bottom of the app (Home or About page), display:
+“Created by Himanshu Singh Rajput”
+
+Features
+	1.	Player Profiles
+
+	•	Each player has a profile page with:
+	•	Player Name
+	•	Profile Image upload (gallery or camera)
+	•	Role (Batsman / Bowler / All-rounder, optional)
+	•	Career-best stats:
+	•	Best Batting Score (highest runs ever scored)
+	•	Best Bowling Figures (most wickets with fewest runs conceded)
+
+	2.	Add Daily Match Data Screen
+
+	•	Form to enter daily totals per player:
+	•	Date
+	•	Player Name (dropdown: Himanshu, Kuldeep, Monti, Ronaldo, Jitu, Dilip)
+	•	Total Runs
+	•	Balls Faced
+	•	4s
+	•	6s
+	•	Wickets
+	•	Overs Bowled
+	•	Runs Conceded
+	•	Each new day = new row per player
+	•	Total Matches of the Day: auto-calculated (number of players who played)
+	•	No Match ID required
+
+	3.	Automatic Calculations (per player)
+
+	•	Total Matches Played
+	•	Total Runs
+	•	Total Balls Faced
+	•	Total Wickets
+	•	Batting Average
+	•	Strike Rate
+	•	Bowling Average
+	•	Economy Rate
+	•	Number of 50s & 100s
+	•	Career-best Batting Score
+	•	Career-best Bowling Figures
+
+	4.	Stats Screen
+
+	•	Table view showing:
+	•	Player Name, Matches, Runs, Average, Strike Rate, Wickets, Economy Rate, 50s / 100s, Career-best Batting Score, Career-best Bowling Figures
+	•	Total Matches of the Day summary at top
+
+	5.	Design
+
+	•	Very simple, clean, beginner-friendly UI
+	•	Lightweight, fast, professional cricket app style
+
+	6.	Goal
+
+	•	Build a fully functional cricket stats app where I just add daily totals per player, and the app automatically calculates all professional cricket statistics, including:
+	•	50s & 100s
+	•	Career-best batting & bowling
+	•	Total Matches of the Day
+	•	Player profiles with images
+	•	Include a credit line: “Created by Himanshu Singh Rajput”
+
+⸻
+
+This is ready to paste in Google AI Studio for app generation.
+
+If you want, I can also create a ready-to-use Google Sheet template linked to this app, so the app will auto-calculate stats instantly — fully plug-and-play.
+
+Do you want me to make that sheet next?
