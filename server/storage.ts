@@ -25,11 +25,20 @@ export class DatabaseStorage implements IStorage {
     const totalBalls = stats.reduce((sum, s) => sum + s.ballsFaced, 0);
     const totalWickets = stats.reduce((sum, s) => sum + s.wickets, 0);
     const totalRunsConceded = stats.reduce((sum, s) => sum + s.runsConceded, 0);
-    const totalOvers = stats.reduce((sum, s) => sum + Number(s.oversBowled), 0);
+    
+    // Calculate total overs properly (summing balls then converting back to overs)
+    const totalBallsBowled = stats.reduce((sum, s) => {
+      const parts = String(s.oversBowled).split('.');
+      const overs = parseInt(parts[0]) || 0;
+      const balls = parseInt(parts[1]) || 0;
+      return sum + (overs * 6) + balls;
+    }, 0);
+    
+    const totalOvers = Math.floor(totalBallsBowled / 6) + (totalBallsBowled % 6) / 10;
     const matches = stats.length;
 
     // Batting Stats
-    const battingAverage = matches > 0 ? totalRuns / matches : 0; // Simplified: usually calculated as Runs / (Innings - Not Outs). Assuming 0 not outs for simplicity unless we add that field.
+    const battingAverage = matches > 0 ? totalRuns / matches : 0;
     const strikeRate = totalBalls > 0 ? (totalRuns / totalBalls) * 100 : 0;
     const fifties = stats.filter(s => s.runs >= 50 && s.runs < 100).length;
     const hundreds = stats.filter(s => s.runs >= 100).length;
@@ -37,16 +46,16 @@ export class DatabaseStorage implements IStorage {
 
     // Bowling Stats
     const bowlingAverage = totalWickets > 0 ? totalRunsConceded / totalWickets : 0;
-    const economyRate = totalOvers > 0 ? totalRunsConceded / totalOvers : 0;
+    const economyRate = totalBallsBowled > 0 ? (totalRunsConceded / (totalBallsBowled / 6)) : 0;
     
     // Best Bowling: Most wickets, then least runs
     const bestBowlingStat = stats.reduce((best, s) => {
       if (s.wickets > best.wickets) return s;
       if (s.wickets === best.wickets && s.runsConceded < best.runsConceded) return s;
       return best;
-    }, { wickets: 0, runsConceded: 0 } as MatchStats);
+    }, { wickets: 0, runsConceded: 9999 } as MatchStats);
     
-    const bestBowling = bestBowlingStat.wickets > 0 
+    const bestBowling = bestBowlingStat.wickets > 0 || bestBowlingStat.runsConceded < 9999
       ? `${bestBowlingStat.wickets}/${bestBowlingStat.runsConceded}`
       : "N/A";
 
