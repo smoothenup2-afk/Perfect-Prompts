@@ -37,7 +37,18 @@ function EditStatsDialog({ stats }: { stats: MatchStats }) {
   });
 
   const onSubmit = (data: any) => {
-    updateStats.mutate({ id: stats.id, ...data }, {
+    // Coerce numeric values to ensure they are sent as numbers
+    const payload = {
+      ...data,
+      runs: Number(data.runs),
+      wickets: Number(data.wickets),
+      ballsFaced: Number(data.ballsFaced),
+      fours: Number(data.fours),
+      sixes: Number(data.sixes),
+      runsConceded: Number(data.runsConceded),
+      playerId: Number(data.playerId)
+    };
+    updateStats.mutate({ id: stats.id, ...payload }, {
       onSuccess: () => setOpen(false),
     });
   };

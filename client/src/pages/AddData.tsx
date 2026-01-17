@@ -58,7 +58,14 @@ export default function AddData() {
   });
 
   const onSubmit = (data: InsertMatchStats) => {
-    addStats.mutate(data, {
+    // Explicitly set removed fields to 0 or appropriate defaults
+    const payload = {
+      ...data,
+      ballsFaced: 0,
+      oversBowled: "0",
+      runsConceded: 0,
+    };
+    addStats.mutate(payload, {
       onSuccess: () => {
         form.reset({
           ...form.getValues(), // keep date and player if convenient? Maybe reset player.
@@ -140,26 +147,13 @@ export default function AddData() {
 
                 <div className="space-y-4">
                   <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground border-b pb-2">Batting Stats</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <FormField
                       control={form.control}
                       name="runs"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Runs</FormLabel>
-                          <FormControl>
-                            <Input type="number" {...field} className="font-mono" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="ballsFaced"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Balls</FormLabel>
                           <FormControl>
                             <Input type="number" {...field} className="font-mono" />
                           </FormControl>
@@ -198,34 +192,7 @@ export default function AddData() {
 
                 <div className="space-y-4">
                   <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground border-b pb-2">Bowling Stats</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="oversBowled"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Overs</FormLabel>
-                          <FormControl>
-                            <Input placeholder="e.g. 4.0" {...field} className="font-mono" />
-                          </FormControl>
-                          <FormDescription className="text-xs">Use decimal for balls (e.g. 3.2)</FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="runsConceded"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Runs Conceded</FormLabel>
-                          <FormControl>
-                            <Input type="number" {...field} className="font-mono" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                  <div className="grid grid-cols-1 gap-4">
                     <FormField
                       control={form.control}
                       name="wickets"
