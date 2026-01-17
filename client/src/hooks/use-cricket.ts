@@ -57,6 +57,64 @@ export function useUpdatePlayer() {
   });
 }
 
+export function useMatchStats() {
+  return useQuery({
+    queryKey: [api.stats.list.path],
+    queryFn: async () => {
+      const res = await fetch(api.stats.list.path);
+      if (!res.ok) throw new Error("Failed to fetch match stats");
+      return api.stats.list.responses[200].parse(await res.json());
+    },
+  });
+}
+
+export function useUpdateStats() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async ({ id, ...data }: { id: number } & Partial<InsertMatchStats>) => {
+      const url = buildUrl(api.stats.update.path, { id });
+      const res = await fetch(url, {
+        method: api.stats.update.method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Failed to update stats");
+      return api.stats.update.responses[200].parse(await res.json());
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [api.players.list.path] });
+      queryClient.invalidateQueries({ queryKey: [api.stats.list.path] });
+      toast({ title: "Success", description: "Stats updated successfully" });
+    },
+    onError: (error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+}
+
+export function useDeleteStats() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const url = buildUrl(api.stats.delete.path, { id });
+      const res = await fetch(url, { method: api.stats.delete.method });
+      if (!res.ok) throw new Error("Failed to delete stats");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [api.players.list.path] });
+      queryClient.invalidateQueries({ queryKey: [api.stats.list.path] });
+      toast({ title: "Success", description: "Stats deleted successfully" });
+    },
+    onError: (error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+}
+
 // ============================================
 // Stats Hooks
 // ============================================

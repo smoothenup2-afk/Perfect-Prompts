@@ -17,6 +17,8 @@ export interface IStorage {
   createPlayer(player: InsertPlayer): Promise<Player>;
   addMatchStats(stats: InsertMatchStats): Promise<MatchStats>;
   getMatchStats(): Promise<MatchStats[]>;
+  updateMatchStats(id: number, updates: Partial<InsertMatchStats>): Promise<MatchStats>;
+  deleteMatchStats(id: number): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -35,6 +37,10 @@ export class DatabaseStorage implements IStorage {
     }, 0);
     
     const totalOvers = Math.floor(totalBallsBowled / 6) + (totalBallsBowled % 6) / 10;
+    
+    // Total matches logic: Count entries where the player actually participated
+    // (e.g. either batted, bowled, or just was in the lineup)
+    // For this app, every entry in matchStats is considered a match played by that player.
     const matches = stats.length;
 
     // Batting Stats
@@ -114,6 +120,18 @@ export class DatabaseStorage implements IStorage {
 
   async getMatchStats(): Promise<MatchStats[]> {
     return await db.select().from(matchStats).orderBy(desc(matchStats.date));
+  }
+
+  async updateMatchStats(id: number, updates: Partial<InsertMatchStats>): Promise<MatchStats> {
+    const [updated] = await db.update(matchStats)
+      .set(updates)
+      .where(eq(matchStats.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteMatchStats(id: number): Promise<void> {
+    await db.delete(matchStats).where(eq(matchStats.id, id));
   }
 }
 

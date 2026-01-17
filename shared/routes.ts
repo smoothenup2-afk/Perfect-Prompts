@@ -58,6 +58,24 @@ export const api = {
         200: z.array(z.custom<typeof matchStats.$inferSelect>()),
       },
     },
+    update: {
+      method: 'PATCH' as const,
+      path: '/api/stats/:id',
+      input: insertMatchStatsSchema.partial(),
+      responses: {
+        200: z.custom<typeof matchStats.$inferSelect>(),
+        400: errorSchemas.validation,
+        404: errorSchemas.notFound,
+      },
+    },
+    delete: {
+      method: 'DELETE' as const,
+      path: '/api/stats/:id',
+      responses: {
+        204: z.void(),
+        404: errorSchemas.notFound,
+      },
+    },
   },
 };
 

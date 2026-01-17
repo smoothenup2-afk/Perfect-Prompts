@@ -25,10 +25,7 @@ export function StatsTable({ players }: StatsTableProps) {
             <TableHead className="w-[200px] font-bold text-primary">Player</TableHead>
             <TableHead className="text-center font-bold">Matches</TableHead>
             <TableHead className="text-center font-bold">Runs</TableHead>
-            <TableHead className="text-center font-bold">Avg</TableHead>
-            <TableHead className="text-center font-bold">SR</TableHead>
             <TableHead className="text-center font-bold">Wickets</TableHead>
-            <TableHead className="text-center font-bold">Econ</TableHead>
             <TableHead className="text-center font-bold text-muted-foreground hidden md:table-cell">50s</TableHead>
             <TableHead className="text-center font-bold text-muted-foreground hidden md:table-cell">100s</TableHead>
             <TableHead className="text-right font-bold hidden lg:table-cell">Best Bat</TableHead>
@@ -56,10 +53,7 @@ export function StatsTable({ players }: StatsTableProps) {
                 <Badge variant="secondary" className="font-mono">{player.matches}</Badge>
               </TableCell>
               <TableCell className="text-center font-mono font-bold text-foreground">{player.totalRuns}</TableCell>
-              <TableCell className="text-center font-mono text-muted-foreground">{player.battingAverage}</TableCell>
-              <TableCell className="text-center font-mono text-muted-foreground">{player.strikeRate}</TableCell>
               <TableCell className="text-center font-mono font-bold text-primary">{player.totalWickets}</TableCell>
-              <TableCell className="text-center font-mono text-muted-foreground">{player.economyRate}</TableCell>
               <TableCell className="text-center text-muted-foreground hidden md:table-cell">{player.fifties}</TableCell>
               <TableCell className="text-center text-muted-foreground hidden md:table-cell">{player.hundreds}</TableCell>
               <TableCell className="text-right font-mono text-sm hidden lg:table-cell">{player.bestBatting}*</TableCell>
