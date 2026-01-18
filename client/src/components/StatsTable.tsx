@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { type PlayerStats } from "@shared/schema";
 import { Link } from "wouter";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Trophy } from "lucide-react";
 
 interface StatsTableProps {
   players: PlayerStats[];
@@ -63,7 +63,8 @@ export function StatsTable({ players }: StatsTableProps) {
                   <div className="flex flex-col items-center gap-1">
                     {player.totalRuns}
                     {isOrangeCap && (
-                      <Badge className="bg-orange-500 hover:bg-orange-600 text-[10px] h-4 px-1 leading-none uppercase">
+                      <Badge className="bg-orange-500 hover:bg-orange-600 text-[10px] h-4 px-1 gap-1 leading-none uppercase">
+                        <Trophy className="w-2.5 h-2.5" />
                         Orange Cap
                       </Badge>
                     )}
@@ -73,7 +74,8 @@ export function StatsTable({ players }: StatsTableProps) {
                   <div className="flex flex-col items-center gap-1">
                     {player.totalWickets}
                     {isPurpleCap && (
-                      <Badge className="bg-purple-600 hover:bg-purple-700 text-[10px] h-4 px-1 leading-none uppercase">
+                      <Badge className="bg-purple-600 hover:bg-purple-700 text-[10px] h-4 px-1 gap-1 leading-none uppercase">
+                        <Trophy className="w-2.5 h-2.5" />
                         Purple Cap
                       </Badge>
                     )}
