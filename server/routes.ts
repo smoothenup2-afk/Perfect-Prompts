@@ -35,6 +35,20 @@ export async function registerRoutes(
     }
   });
 
+  app.post("/api/players", async (req, res) => {
+    try {
+      const player = await storage.createPlayer(req.body);
+      res.status(201).json(player);
+    } catch (err) {
+      res.status(400).json({ message: "Failed to create player" });
+    }
+  });
+
+  app.delete("/api/players/:id", async (req, res) => {
+    await storage.deletePlayer(Number(req.params.id));
+    res.status(204).end();
+  });
+
   app.post(api.stats.create.path, async (req, res) => {
     try {
       const input = api.stats.create.input.parse(req.body);

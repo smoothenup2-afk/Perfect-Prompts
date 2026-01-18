@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import History from "@/pages/History";
 import AddData from "@/pages/AddData";
+import Players from "@/pages/Players";
 import PlayerProfile from "@/pages/PlayerProfile";
 
 function Router() {
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/history" component={History} />
       <Route path="/add" component={AddData} />
+      <Route path="/players" component={Players} />
       <Route path="/player/:id" component={PlayerProfile} />
       <Route component={NotFound} />
     </Switch>
