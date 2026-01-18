@@ -3,6 +3,8 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AdminProvider } from "@/lib/admin";
+import { AdminGuard } from "@/components/AdminGuard";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import History from "@/pages/History";
@@ -14,9 +16,21 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/history" component={History} />
-      <Route path="/add" component={AddData} />
-      <Route path="/players" component={Players} />
+      <Route path="/history">
+        <AdminGuard>
+          <History />
+        </AdminGuard>
+      </Route>
+      <Route path="/add">
+        <AdminGuard>
+          <AddData />
+        </AdminGuard>
+      </Route>
+      <Route path="/players">
+        <AdminGuard>
+          <Players />
+        </AdminGuard>
+      </Route>
       <Route path="/player/:id" component={PlayerProfile} />
       <Route component={NotFound} />
     </Switch>
@@ -26,10 +40,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <AdminProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </AdminProvider>
     </QueryClientProvider>
   );
 }
