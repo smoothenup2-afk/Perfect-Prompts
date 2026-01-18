@@ -31,7 +31,7 @@ export function StatsTable({ players }: StatsTableProps) {
             <TableHead className="text-center font-bold">Wickets</TableHead>
             <TableHead className="text-center font-bold text-muted-foreground hidden md:table-cell">50s</TableHead>
             <TableHead className="text-center font-bold text-muted-foreground hidden md:table-cell">100s</TableHead>
-            <TableHead className="text-right font-bold hidden lg:table-cell">Best Bat</TableHead>
+            <TableHead className="text-center font-bold text-muted-foreground hidden md:table-cell">Best</TableHead>
             <TableHead className="text-right font-bold hidden lg:table-cell">Best Bowl</TableHead>
           </TableRow>
         </TableHeader>
@@ -83,7 +83,7 @@ export function StatsTable({ players }: StatsTableProps) {
                 </TableCell>
                 <TableCell className="text-center text-muted-foreground hidden md:table-cell">{player.fifties}</TableCell>
                 <TableCell className="text-center text-muted-foreground hidden md:table-cell">{player.hundreds}</TableCell>
-                <TableCell className="text-right font-mono text-sm hidden lg:table-cell">{player.bestBatting}*</TableCell>
+                <TableCell className="text-center text-muted-foreground font-mono hidden md:table-cell">{player.bestBatting}*</TableCell>
                 <TableCell className="text-right font-mono text-sm hidden lg:table-cell">{player.bestBowling}</TableCell>
               </TableRow>
             );
