@@ -30,13 +30,6 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   );
 }
 
-  return (
-    <AdminContext.Provider value={{ isAdmin, login, logout }}>
-      {children}
-    </AdminContext.Provider>
-  );
-}
-
 export function useAdmin() {
   const context = useContext(AdminContext);
   if (context === undefined) {
