@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Trophy, PlusCircle, LayoutDashboard, Calendar, Users } from "lucide-react";
+import { Trophy, PlusCircle, LayoutDashboard, Calendar, Users, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -10,6 +10,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     { href: "/add", label: "Add Data", icon: PlusCircle },
     { href: "/history", label: "History", icon: Calendar },
     { href: "/players", label: "Players", icon: Users },
+    { href: "/monthly", label: "Monthly", icon: BarChart3 },
   ];
 
   return (

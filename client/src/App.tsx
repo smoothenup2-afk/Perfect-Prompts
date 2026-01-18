@@ -10,6 +10,7 @@ import Home from "@/pages/Home";
 import History from "@/pages/History";
 import AddData from "@/pages/AddData";
 import Players from "@/pages/Players";
+import MonthlyStats from "@/pages/MonthlyStats";
 import PlayerProfile from "@/pages/PlayerProfile";
 
 function Router() {
@@ -31,6 +32,7 @@ function Router() {
           <Players />
         </AdminGuard>
       </Route>
+      <Route path="/monthly" component={MonthlyStats} />
       <Route path="/player/:id" component={PlayerProfile} />
       <Route component={NotFound} />
     </Switch>
