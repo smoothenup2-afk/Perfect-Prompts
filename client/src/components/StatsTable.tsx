@@ -17,6 +17,9 @@ interface StatsTableProps {
 }
 
 export function StatsTable({ players }: StatsTableProps) {
+  const maxRuns = Math.max(...players.map(p => p.totalRuns), 0);
+  const maxWickets = Math.max(...players.map(p => p.totalWickets), 0);
+
   return (
     <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
       <Table>
@@ -33,33 +36,56 @@ export function StatsTable({ players }: StatsTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {players.map((player) => (
-            <TableRow key={player.id} className="group hover:bg-muted/30 transition-colors">
-              <TableCell className="font-medium">
-                <Link href={`/player/${player.id}`} className="flex items-center gap-3">
-                  <Avatar className="h-8 w-8 border-2 border-white shadow-sm group-hover:border-primary/20 transition-colors">
-                    <AvatarImage src={player.imageUrl || undefined} alt={player.name} />
-                    <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
-                      {player.name.substring(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className="group-hover:text-primary transition-colors flex items-center gap-1">
-                    {player.name}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </span>
-                </Link>
-              </TableCell>
-              <TableCell className="text-center">
-                <Badge variant="secondary" className="font-mono">{player.matches}</Badge>
-              </TableCell>
-              <TableCell className="text-center font-mono font-bold text-foreground">{player.totalRuns}</TableCell>
-              <TableCell className="text-center font-mono font-bold text-primary">{player.totalWickets}</TableCell>
-              <TableCell className="text-center text-muted-foreground hidden md:table-cell">{player.fifties}</TableCell>
-              <TableCell className="text-center text-muted-foreground hidden md:table-cell">{player.hundreds}</TableCell>
-              <TableCell className="text-right font-mono text-sm hidden lg:table-cell">{player.bestBatting}*</TableCell>
-              <TableCell className="text-right font-mono text-sm hidden lg:table-cell">{player.bestBowling}</TableCell>
-            </TableRow>
-          ))}
+          {players.map((player) => {
+            const isOrangeCap = player.totalRuns > 0 && player.totalRuns === maxRuns;
+            const isPurpleCap = player.totalWickets > 0 && player.totalWickets === maxWickets;
+
+            return (
+              <TableRow key={player.id} className="group hover:bg-muted/30 transition-colors">
+                <TableCell className="font-medium">
+                  <Link href={`/player/${player.id}`} className="flex items-center gap-3">
+                    <Avatar className="h-8 w-8 border-2 border-white shadow-sm group-hover:border-primary/20 transition-colors">
+                      <AvatarImage src={player.imageUrl || undefined} alt={player.name} />
+                      <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                        {player.name.substring(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="group-hover:text-primary transition-colors flex items-center gap-1">
+                      {player.name}
+                      <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </span>
+                  </Link>
+                </TableCell>
+                <TableCell className="text-center">
+                  <Badge variant="secondary" className="font-mono">{player.matches}</Badge>
+                </TableCell>
+                <TableCell className="text-center font-mono font-bold text-foreground">
+                  <div className="flex flex-col items-center gap-1">
+                    {player.totalRuns}
+                    {isOrangeCap && (
+                      <Badge className="bg-orange-500 hover:bg-orange-600 text-[10px] h-4 px-1 leading-none uppercase">
+                        Orange Cap
+                      </Badge>
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell className="text-center font-mono font-bold text-primary">
+                  <div className="flex flex-col items-center gap-1">
+                    {player.totalWickets}
+                    {isPurpleCap && (
+                      <Badge className="bg-purple-600 hover:bg-purple-700 text-[10px] h-4 px-1 leading-none uppercase">
+                        Purple Cap
+                      </Badge>
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell className="text-center text-muted-foreground hidden md:table-cell">{player.fifties}</TableCell>
+                <TableCell className="text-center text-muted-foreground hidden md:table-cell">{player.hundreds}</TableCell>
+                <TableCell className="text-right font-mono text-sm hidden lg:table-cell">{player.bestBatting}*</TableCell>
+                <TableCell className="text-right font-mono text-sm hidden lg:table-cell">{player.bestBowling}</TableCell>
+              </TableRow>
+            );
+          })}
           {players.length === 0 && (
             <TableRow>
               <TableCell colSpan={11} className="h-32 text-center text-muted-foreground">
