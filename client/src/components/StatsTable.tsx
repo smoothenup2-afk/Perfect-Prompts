@@ -50,7 +50,9 @@ export function StatsTable({ players }: StatsTableProps) {
                         {player.name.substring(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="group-hover:text-primary transition-colors flex items-center gap-1">
+                    <span className={`group-hover:text-primary transition-colors flex items-center gap-1 ${
+                      isOrangeCap ? 'text-orange-500 font-bold' : isPurpleCap ? 'text-purple-600 font-bold' : ''
+                    }`}>
                       {player.name}
                       <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </span>
