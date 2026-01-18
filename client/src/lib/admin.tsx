@@ -10,13 +10,13 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export function AdminProvider({ children }: { children: ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(() => {
-    return localStorage.getItem("our_cricket_admin") === "true";
+    return sessionStorage.getItem("our_cricket_admin") === "true";
   });
 
   const login = (password: string) => {
     if (password === "2366") {
       setIsAdmin(true);
-      localStorage.setItem("our_cricket_admin", "true");
+      sessionStorage.setItem("our_cricket_admin", "true");
       return true;
     }
     return false;
@@ -24,7 +24,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setIsAdmin(false);
-    localStorage.removeItem("our_cricket_admin");
+    sessionStorage.removeItem("our_cricket_admin");
   };
 
   return (
