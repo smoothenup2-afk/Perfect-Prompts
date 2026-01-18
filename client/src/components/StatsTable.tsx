@@ -17,6 +17,7 @@ interface StatsTableProps {
 }
 
 export function StatsTable({ players }: StatsTableProps) {
+  const sortedPlayers = [...players].sort((a, b) => b.totalRuns - a.totalRuns);
   const maxRuns = Math.max(...players.map(p => p.totalRuns), 0);
   const maxWickets = Math.max(...players.map(p => p.totalWickets), 0);
 
@@ -36,7 +37,7 @@ export function StatsTable({ players }: StatsTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {players.map((player) => {
+          {sortedPlayers.map((player) => {
             const isOrangeCap = player.totalRuns > 0 && player.totalRuns === maxRuns;
             const isPurpleCap = player.totalWickets > 0 && player.totalWickets === maxWickets;
 
