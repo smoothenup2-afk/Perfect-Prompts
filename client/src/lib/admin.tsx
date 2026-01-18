@@ -9,14 +9,11 @@ interface AdminContextType {
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export function AdminProvider({ children }: { children: ReactNode }) {
-  const [isAdmin, setIsAdmin] = useState(() => {
-    return sessionStorage.getItem("our_cricket_admin") === "true";
-  });
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const login = (password: string) => {
     if (password === "2366") {
       setIsAdmin(true);
-      sessionStorage.setItem("our_cricket_admin", "true");
       return true;
     }
     return false;
@@ -24,8 +21,14 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setIsAdmin(false);
-    sessionStorage.removeItem("our_cricket_admin");
   };
+
+  return (
+    <AdminContext.Provider value={{ isAdmin, login, logout }}>
+      {children}
+    </AdminContext.Provider>
+  );
+}
 
   return (
     <AdminContext.Provider value={{ isAdmin, login, logout }}>
