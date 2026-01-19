@@ -11,6 +11,7 @@ import History from "@/pages/History";
 import AddData from "@/pages/AddData";
 import Players from "@/pages/Players";
 import MonthlyStats from "@/pages/MonthlyStats";
+import HeadToHead from "@/pages/HeadToHead";
 import PlayerProfile from "@/pages/PlayerProfile";
 
 function Router() {
@@ -33,6 +34,7 @@ function Router() {
         </AdminGuard>
       </Route>
       <Route path="/monthly" component={MonthlyStats} />
+      <Route path="/h2h" component={HeadToHead} />
       <Route path="/player/:id" component={PlayerProfile} />
       <Route component={NotFound} />
     </Switch>

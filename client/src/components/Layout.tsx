@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Trophy, PlusCircle, LayoutDashboard, Calendar, Users, BarChart3 } from "lucide-react";
+import { Trophy, PlusCircle, LayoutDashboard, Calendar, Users, BarChart3, Swords } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -8,6 +8,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const navItems = [
     { href: "/", label: "Dashboard", icon: LayoutDashboard },
     { href: "/add", label: "Add Data", icon: PlusCircle },
+    { href: "/h2h", label: "Head to Head", icon: Swords },
     { href: "/history", label: "History", icon: Calendar },
     { href: "/players", label: "Players", icon: Users },
     { href: "/monthly", label: "Monthly", icon: BarChart3 },

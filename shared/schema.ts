@@ -21,6 +21,7 @@ export const matchStats = pgTable("match_stats", {
   wickets: integer("wickets").notNull().default(0),
   oversBowled: numeric("overs_bowled").notNull().default("0"),
   runsConceded: integer("runs_conceded").notNull().default(0),
+  wicketTakenBy: integer("wicket_taken_by"), // New field: player ID who took the wicket
 });
 
 export const playersRelations = relations(players, ({ many }) => ({

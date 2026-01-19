@@ -37,6 +37,7 @@ const formSchema = insertMatchStatsSchema.extend({
   wickets: z.coerce.number().min(0),
   oversBowled: z.string().regex(/^\d+(\.[0-6])?$/, "Invalid overs format (e.g. 4 or 4.2)"),
   runsConceded: z.coerce.number().min(0),
+  wicketTakenBy: z.coerce.number().optional().nullable(),
 });
 
 export default function AddData() {
@@ -192,16 +193,45 @@ export default function AddData() {
 
                 <div className="space-y-4">
                   <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground border-b pb-2">Bowling Stats</h4>
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
                       name="wickets"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Wickets</FormLabel>
+                          <FormLabel>Wickets Taken</FormLabel>
                           <FormControl>
                             <Input type="number" {...field} className="font-mono" />
                           </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="wicketTakenBy"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Out By (Wicket taken by)</FormLabel>
+                          <Select
+                            onValueChange={(val) => field.onChange(val === "not_out" ? null : parseInt(val))}
+                            value={field.value?.toString() || "not_out"}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select player" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="not_out">Not Out</SelectItem>
+                              {players?.filter(p => p.id !== form.watch("playerId")).map((player) => (
+                                <SelectItem key={player.id} value={player.id.toString()}>
+                                  {player.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormDescription className="text-xs">Select who took this player's wicket</FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
